@@ -77,13 +77,13 @@ class Surah {
 }
 
 class SuratSenya {
-  int? nomor;
+  int nomor;
   String? nama;
   String? namaLatin;
   int? jumlahAyat;
 
   SuratSenya({
-    this.nomor,
+    required this.nomor,
     this.nama,
     this.namaLatin,
     this.jumlahAyat,
@@ -91,7 +91,6 @@ class SuratSenya {
 
   factory SuratSenya.fromJson(dynamic json) {
     if (json is bool) {
-      print('json is bool');
       return SuratSenya(
         nomor: 0,
         nama: "",

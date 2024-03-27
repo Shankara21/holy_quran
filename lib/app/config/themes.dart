@@ -12,8 +12,7 @@ Color appGray = const Color(0xff61677A);
 // Text Theme
 TextStyle titleStyle = GoogleFonts.poppins(
   fontSize: 28,
-  fontWeight: FontWeight.bold,
-  color: Colors.white,
+  fontWeight: FontWeight.w700,
 );
 
 TextStyle subtitleStyle = GoogleFonts.poppins(
@@ -26,13 +25,12 @@ TextStyle arabicStyle = TextStyle(
   fontSize: 24,
   fontWeight: FontWeight.w500,
   fontFamily: 'Uthmani',
-  color: appBlue,
 );
 
 TextStyle primaryTextStyle = GoogleFonts.poppins(
   fontSize: 16,
   fontWeight: FontWeight.w500,
-  color: Colors.white,
+  // color: Colors.white,
 );
 
 TextStyle secondaryTextStyle = GoogleFonts.poppins(
@@ -49,6 +47,9 @@ ThemeData lightTheme = ThemeData(
   appBarTheme: AppBarTheme(
     backgroundColor: Colors.white,
   ),
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    backgroundColor: appBlue,
+  ),
 );
 
 ThemeData darkTheme = ThemeData(
@@ -59,4 +60,7 @@ ThemeData darkTheme = ThemeData(
     backgroundColor: primaryDarkColor,
   ),
   textTheme: TextTheme(),
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    backgroundColor: Color(0xff0174BE),
+  ),
 );

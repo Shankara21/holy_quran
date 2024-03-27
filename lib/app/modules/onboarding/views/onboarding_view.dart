@@ -47,31 +47,32 @@ class OnboardingView extends GetView<OnboardingController> {
                           child: Center(
                             child: ElevatedButton(
                               onPressed: () {
-                                Get.defaultDialog(
-                                  title: 'Enter Your Name',
-                                  content: Column(
-                                    children: [
-                                      TextField(
-                                        // controller: controller.nameController,
-                                        decoration: InputDecoration(
-                                          hintText: 'Enter your name',
-                                        ),
-                                      ),
-                                      const SizedBox(height: 16),
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          // simpan nama ke shared preferences
-                                          // controller.saveName();
-                                          // tutup dialog
-                                          Get.back();
-                                          // pindah ke halaman berikutnya
-                                          Get.offAllNamed(Routes.HOME);
-                                        },
-                                        child: Text('Save'),
-                                      ),
-                                    ],
-                                  ),
-                                );
+                                Get.offAllNamed(Routes.HOME);
+                                // Get.defaultDialog(
+                                //   title: 'Enter Your Name',
+                                //   content: Column(
+                                //     children: [
+                                //       TextField(
+                                //         // controller: controller.nameController,
+                                //         decoration: InputDecoration(
+                                //           hintText: 'Enter your name',
+                                //         ),
+                                //       ),
+                                //       const SizedBox(height: 16),
+                                //       ElevatedButton(
+                                //         onPressed: () {
+                                //           // simpan nama ke shared preferences
+                                //           // controller.saveName();
+                                //           // tutup dialog
+                                //           Get.back();
+                                //           // pindah ke halaman berikutnya
+                                //           Get.offAllNamed(Routes.HOME);
+                                //         },
+                                //         child: Text('Save'),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // );
                               },
                               style: ElevatedButton.styleFrom(
                                 //height of the button

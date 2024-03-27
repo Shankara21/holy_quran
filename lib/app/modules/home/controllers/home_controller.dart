@@ -18,4 +18,23 @@ class HomeController extends GetxController {
       return data.map((e) => Surah.fromJson(e)).toList();
     }
   }
+
+  late var date = ''.obs;
+  Future<dynamic> getHijriDate() async {
+    DateTime dateNow = DateTime.now();
+    String formattedDate = "${dateNow.day}-${dateNow.month}-${dateNow.year}";
+    Uri url = Uri.parse(Api.dateHijriUrl + "/${formattedDate}");
+    var res = await http.get(url);
+    var rawData = json.decode(res.body)['data']['hijri'];
+    var data =
+        "${rawData['day']} ${rawData['month']['en']} ${rawData['year']} H";
+    date.value = data;
+    update();
+  }
+
+  @override
+  void onInit() {
+    getHijriDate();
+    super.onInit();
+  }
 }
