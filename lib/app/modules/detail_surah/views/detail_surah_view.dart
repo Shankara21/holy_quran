@@ -223,12 +223,12 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                     ),
                                   ),
                                 ),
-                              if (dataSurah!.suratSelanjutnya != null)
+                              if (dataSurah.suratSelanjutnya != null)
                                 TextButton(
                                   onPressed: () {
                                     if (dataSurah.suratSelanjutnya != null) {
                                       controller.getDetailSurah(
-                                          dataSurah!.suratSelanjutnya!.nomor);
+                                          dataSurah.suratSelanjutnya!.nomor);
                                     }
                                   },
                                   child: Text(

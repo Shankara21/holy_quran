@@ -163,21 +163,20 @@ class HomeView extends GetView<HomeController> {
                                 Get.toNamed(Routes.DETAIL_SURAH,
                                     arguments: surah);
                               },
-                              leading: Stack(
-                                children: [
-                                  Image.asset(
-                                    'assets/border.png',
-                                    width: 40,
-                                  ),
-                                  Positioned(
-                                    left: 16,
-                                    top: 10,
-                                    child: Text(
-                                      surah.nomor.toString(),
-                                      style: primaryTextStyle,
+                              leading: Container(
+                                height: 35,
+                                width: 35,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                      'assets/border.png',
                                     ),
-                                  )
-                                ],
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(surah.nomor.toString(),
+                                      style: primaryTextStyle.copyWith()),
+                                ),
                               ),
                               title: Text(
                                 "Surah  ${surah.namaLatin}",
@@ -199,8 +198,62 @@ class HomeView extends GetView<HomeController> {
                     Center(
                       child: Text('Doa'),
                     ),
-                    Center(
-                      child: Text('Tafsir'),
+                    FutureBuilder<List<Surah>>(
+                      future: controller.getAllSurah(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.blue,
+                            ),
+                          );
+                        }
+                        if (!snapshot.hasData) {
+                          return const Center(
+                            child: Text("Data tidak ditemukan"),
+                          );
+                        }
+                        return ListView.builder(
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            Surah surah = snapshot.data![index];
+                            return ListTile(
+                              onTap: () {
+                                Get.toNamed(Routes.DETAIL_SURAH,
+                                    arguments: surah);
+                              },
+                              leading: Container(
+                                height: 35,
+                                width: 35,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                      'assets/border.png',
+                                    ),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(surah.nomor.toString(),
+                                      style: primaryTextStyle.copyWith()),
+                                ),
+                              ),
+                              title: Text(
+                                "Surah  ${surah.namaLatin}",
+                                style: primaryTextStyle,
+                              ),
+                              subtitle: Text(
+                                "${surah.jumlahAyat} Ayat | ${surah.tempatTurun}",
+                                style: secondaryTextStyle,
+                              ),
+                              trailing: Text(
+                                surah.nama,
+                                style: arabicStyle,
+                              ),
+                            );
+                          },
+                        );
+                      },
                     ),
                     Center(
                       child: Text('Juz'),
