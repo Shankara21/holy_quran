@@ -265,72 +265,16 @@ class HomeView extends GetView<HomeController> {
           ),
         ),
       ),
-      // body: FutureBuilder<List<Surah>>(
-      //   future: controller.getAllSurah(),
-      //   builder: (context, snapshot) {
-      //     if (snapshot.connectionState == ConnectionState.waiting) {
-      //       return const Center(
-      //         child: CircularProgressIndicator(),
-      //       );
-      //     }
-      //     if (!snapshot.hasData) {
-      //       return const Center(
-      //         child: Text("Data tidak ditemukan"),
-      //       );
-      //     }
-      //     return ListView.builder(
-      //       itemCount: snapshot.data!.length,
-      //       itemBuilder: (context, index) {
-      //         Surah surah = snapshot.data![index];
-      //         return ListTile(
-      //           onTap: () {
-      //             Get.toNamed(Routes.DETAIL_SURAH, arguments: surah);
-      //           },
-      //           leading: Stack(
-      //             children: [
-      //               Image.asset(
-      //                 'assets/border.png',
-      //                 width: 40,
-      //               ),
-      //               Positioned(
-      //                 left: 16,
-      //                 top: 10,
-      //                 child: Text(
-      //                   surah.nomor.toString(),
-      //                   style: primaryTextStyle,
-      //                 ),
-      //               )
-      //             ],
-      //           ),
-      //           title: Text(
-      //             "Surah  ${surah.namaLatin}",
-      //             style: primaryTextStyle,
-      //           ),
-      //           subtitle: Text(
-      //             "${surah.jumlahAyat} Ayat | ${surah.tempatTurun}",
-      //             style: secondaryTextStyle,
-      //           ),
-      //           trailing: Text(
-      //             surah.nama,
-      //             style: arabicStyle,
-      //           ),
-      //         );
-      //       },
-      //     );
-      //   },
-      // ),
       floatingActionButton: FloatingActionButton(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),
         ),
-        onPressed: () {
-          Get.isDarkMode
-              ? Get.changeThemeMode(ThemeMode.light)
-              : Get.changeThemeMode(ThemeMode.dark);
-        },
-        child: const Icon(
-          color: Colors.white,
-          Icons.brightness_4,
+        onPressed: () => controller.changeTheme(),
+        child: Obx(
+          () => Icon(
+            controller.isDark.value ? Icons.nightlight_round : Icons.wb_sunny,
+            color: Colors.white,
+          ),
         ),
       ),
     );
