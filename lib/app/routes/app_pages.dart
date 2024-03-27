@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/detail_surah/bindings/detail_surah_binding.dart';
 import '../modules/detail_surah/views/detail_surah_view.dart';
+import '../modules/detail_tafsir/bindings/detail_tafsir_binding.dart';
+import '../modules/detail_tafsir/views/detail_tafsir_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/onboarding/bindings/onboarding_binding.dart';
@@ -29,6 +31,11 @@ class AppPages {
       name: _Paths.DETAIL_SURAH,
       page: () => DetailSurahView(),
       binding: DetailSurahBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_TAFSIR,
+      page: () => DetailTafsirView(),
+      binding: DetailTafsirBinding(),
     ),
   ];
 }
