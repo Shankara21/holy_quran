@@ -9,6 +9,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   get: 4.6.6
   http: 1.2.1
+  google_fonts: 6.2.1
   flutter: 
     sdk: flutter
 
@@ -18,5 +19,11 @@ dev_dependencies:
     sdk: flutter
 
 flutter: 
+  assets: 
+    - assets/
+  fonts: 
+    - family: Uthmani
+      fonts: 
+        - asset: fonts/uthman.ttf
   uses-material-design: true
 
