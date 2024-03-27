@@ -46,14 +46,8 @@ class Surah {
         ayat: (json["ayat"] as List<dynamic>?)
             ?.map((x) => Ayat.fromJson(x as Map<String, dynamic>))
             .toList(),
-        suratSelanjutnya: json["suratSelanjutnya"] != null
-            ? SuratSenya.fromJson(
-                json["suratSelanjutnya"]! as Map<String, dynamic>)
-            : null,
-        suratSebelumnya: json["suratSebelumnya"] != null
-            ? SuratSenya.fromJson(
-                json["suratSebelumnya"]! as Map<String, dynamic>)
-            : null,
+        suratSelanjutnya: _parseSurat(json["suratSelanjutnya"]),
+        suratSebelumnya: _parseSurat(json["suratSebelumnya"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -70,27 +64,49 @@ class Surah {
         "suratSelanjutnya": suratSelanjutnya!.toJson(),
         "suratSebelumnya": suratSebelumnya!.toJson(),
       };
+  static SuratSenya? _parseSurat(dynamic json) {
+    if (json is Map<String, dynamic>) {
+      return SuratSenya.fromJson(json);
+    } else if (json is bool && !json) {
+      return null;
+    } else {
+      // handle other cases if needed
+      return null;
+    }
+  }
 }
 
 class SuratSenya {
-  int nomor;
-  String nama;
-  String namaLatin;
-  int jumlahAyat;
+  int? nomor;
+  String? nama;
+  String? namaLatin;
+  int? jumlahAyat;
 
   SuratSenya({
-    required this.nomor,
-    required this.nama,
-    required this.namaLatin,
-    required this.jumlahAyat,
+    this.nomor,
+    this.nama,
+    this.namaLatin,
+    this.jumlahAyat,
   });
 
-  factory SuratSenya.fromJson(Map<String, dynamic> json) => SuratSenya(
+  factory SuratSenya.fromJson(dynamic json) {
+    if (json is bool) {
+      print('json is bool');
+      return SuratSenya(
+        nomor: 0,
+        nama: "",
+        namaLatin: "",
+        jumlahAyat: 0,
+      );
+    } else {
+      return SuratSenya(
         nomor: json["nomor"],
         nama: json["nama"],
         namaLatin: json["namaLatin"],
         jumlahAyat: json["jumlahAyat"],
       );
+    }
+  }
 
   Map<String, dynamic> toJson() => {
         "nomor": nomor,
