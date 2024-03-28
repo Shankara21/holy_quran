@@ -160,12 +160,14 @@ class HomeView extends GetView<HomeController> {
                             Surah surah = snapshot.data![index];
                             return ListTile(
                               onTap: () {
-                                Get.toNamed(Routes.DETAIL_SURAH,
-                                    arguments: surah);
+                                Get.toNamed(Routes.DETAIL_SURAH, arguments: {
+                                  'id': surah.nomor,
+                                  'surah': surah
+                                });
                               },
                               leading: Container(
-                                height: 35,
-                                width: 35,
+                                height: 40,
+                                width: 40,
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
                                     image: AssetImage(
@@ -174,8 +176,12 @@ class HomeView extends GetView<HomeController> {
                                   ),
                                 ),
                                 child: Center(
-                                  child: Text(surah.nomor.toString(),
-                                      style: primaryTextStyle.copyWith()),
+                                  child: Text(
+                                    surah.nomor.toString(),
+                                    style: primaryTextStyle.copyWith(
+                                      fontSize: 14,
+                                    ),
+                                  ),
                                 ),
                               ),
                               title: Text(

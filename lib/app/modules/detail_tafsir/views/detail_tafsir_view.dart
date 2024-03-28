@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:holy_quran/app/config/themes.dart';
-import 'package:holy_quran/app/data/models/ayat.dart';
 import 'package:holy_quran/app/data/models/surah.dart';
 import 'package:holy_quran/app/data/models/tafsir_surah.dart';
 
@@ -123,13 +122,12 @@ class DetailTafsirView extends GetView<DetailTafsirController> {
                   child: Text("Data tidak ditemukan"),
                 );
               }
-              var dataSurah = snapshot.data;
               return ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: snapshot.data!.tafsir!.length,
+                itemCount: snapshot.data!.tafsir.length,
                 itemBuilder: (context, index) {
-                  Tafsir ayat = snapshot.data!.tafsir![index];
+                  Tafsir ayat = snapshot.data!.tafsir[index];
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [

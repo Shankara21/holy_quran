@@ -4,14 +4,23 @@ import 'package:get/get.dart';
 import 'package:holy_quran/app/config/themes.dart';
 import 'package:holy_quran/app/data/models/ayat.dart';
 import 'package:holy_quran/app/data/models/surah.dart';
+import 'package:holy_quran/app/routes/app_pages.dart';
 
 import '../controllers/detail_surah_controller.dart';
 
 class DetailSurahView extends GetView<DetailSurahController> {
   DetailSurahView({Key? key}) : super(key: key);
-  final Surah surah = Get.arguments;
   @override
   Widget build(BuildContext context) {
+    Get.put(DetailSurahController());
+    DetailSurahController controller = Get.find<DetailSurahController>();
+    final Map<String, dynamic>? args = Get.arguments as Map<String, dynamic>?;
+
+    Surah surah;
+    int nomor;
+    surah = args!['surah'];
+    nomor = args['id'];
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -73,7 +82,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                           width: 10,
                         ),
                         const Text(
-                          '●',
+                          '● ',
                           style: TextStyle(
                             fontSize: 10,
                             color: Colors.white,
@@ -109,7 +118,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
             height: 20,
           ),
           FutureBuilder<Surah>(
-            future: controller.getDetailSurah(surah.nomor),
+            future: controller.getDetailSurah(nomor),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
@@ -209,12 +218,17 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                 TextButton(
                                   onPressed: () {
                                     if (dataSurah.suratSebelumnya != null) {
-                                      controller.getDetailSurah(
-                                          dataSurah.suratSebelumnya!.nomor);
+                                      Get.offAndToNamed(
+                                        Routes.DETAIL_SURAH,
+                                        arguments: {
+                                          'surah': controller.prevSurah.value,
+                                          'id': dataSurah.suratSebelumnya!.nomor
+                                        },
+                                      );
                                     }
                                   },
                                   child: Text(
-                                    "Back",
+                                    "Back ",
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
@@ -227,12 +241,18 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                 TextButton(
                                   onPressed: () {
                                     if (dataSurah.suratSelanjutnya != null) {
-                                      controller.getDetailSurah(
-                                          dataSurah.suratSelanjutnya!.nomor);
+                                      Get.offAndToNamed(
+                                        Routes.DETAIL_SURAH,
+                                        arguments: {
+                                          'surah': controller.nextSurah.value,
+                                          'id':
+                                              dataSurah.suratSelanjutnya!.nomor
+                                        },
+                                      );
                                     }
                                   },
                                   child: Text(
-                                    "Next",
+                                    "Next ",
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,

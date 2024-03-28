@@ -61,8 +61,8 @@ class Surah {
         "audioFull":
             Map.from(audioFull).map((k, v) => MapEntry<String, dynamic>(k, v)),
         "ayat": List<dynamic>.from(ayat!.map((x) => x.toJson())),
-        "suratSelanjutnya": suratSelanjutnya!.toJson(),
-        "suratSebelumnya": suratSebelumnya!.toJson(),
+        "suratSelanjutnya": suratSelanjutnya?.toJson(),
+        "suratSebelumnya": suratSebelumnya?.toJson(),
       };
   static SuratSenya? _parseSurat(dynamic json) {
     if (json is Map<String, dynamic>) {
