@@ -24,14 +24,17 @@ class QuranView extends GetView<QuranController> {
                   textAlign: TextAlign.start,
                   'Assalamualaikum',
                   style: titleStyle.copyWith(
-                    fontSize: 20,
+                    fontSize: 16,
                   ),
                 ),
                 Obx(
                   () => Text(
-                    controller.date.value.toString(),
+                    controller.username.value != ''
+                        ? controller.username.value
+                        : 'User',
+                    textAlign: TextAlign.start,
                     style: titleStyle.copyWith(
-                      fontSize: 16,
+                      fontSize: 20,
                     ),
                   ),
                 ),
@@ -43,13 +46,25 @@ class QuranView extends GetView<QuranController> {
       body: DefaultTabController(
         length: 4,
         child: Padding(
-          padding: EdgeInsets.only(
-            top: 20,
+          padding: const EdgeInsets.only(
             left: 20,
             right: 20,
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(
+                height: 10,
+              ),
+              Obx(
+                () => Text(
+                  textAlign: TextAlign.start,
+                  controller.date.value.toString(),
+                  style: titleStyle.copyWith(
+                    fontSize: 18,
+                  ),
+                ),
+              ),
               const SizedBox(
                 height: 10,
               ),
@@ -59,7 +74,7 @@ class QuranView extends GetView<QuranController> {
                   children: [
                     Image.asset('assets/last_read.png'),
                     Padding(
-                      padding: EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,7 +184,7 @@ class QuranView extends GetView<QuranController> {
                               leading: Container(
                                 height: 40,
                                 width: 40,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   image: DecorationImage(
                                     image: AssetImage(
                                       'assets/border.png',
@@ -202,7 +217,7 @@ class QuranView extends GetView<QuranController> {
                         );
                       },
                     ),
-                    Center(
+                    const Center(
                       child: Text('Doa'),
                     ),
                     FutureBuilder<List<Surah>>(
@@ -233,7 +248,7 @@ class QuranView extends GetView<QuranController> {
                               leading: Container(
                                 height: 35,
                                 width: 35,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   image: DecorationImage(
                                     image: AssetImage(
                                       'assets/border.png',
@@ -262,25 +277,13 @@ class QuranView extends GetView<QuranController> {
                         );
                       },
                     ),
-                    Center(
+                    const Center(
                       child: Text('Juz'),
                     ),
                   ],
                 ),
               )
             ],
-          ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50),
-        ),
-        onPressed: () => controller.changeTheme(),
-        child: Obx(
-          () => Icon(
-            controller.isDark.value ? Icons.nightlight_round : Icons.wb_sunny,
-            color: Colors.white,
           ),
         ),
       ),

@@ -1,9 +1,7 @@
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 class HomeController extends GetxController {
   var selectedIndex = 0.obs;
-
 
   List<Map<String, dynamic>> itemNavbar = [
     {

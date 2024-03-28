@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:holy_quran/app/data/models/surah.dart';
 import 'package:holy_quran/app/data/models/tafsir_surah.dart';
 import 'package:http/http.dart' as http;
 
