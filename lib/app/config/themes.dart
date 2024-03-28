@@ -50,6 +50,7 @@ ThemeData lightTheme = ThemeData(
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     backgroundColor: appBlue,
   ),
+  
 );
 
 ThemeData darkTheme = ThemeData(

@@ -10,6 +10,12 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/onboarding/bindings/onboarding_binding.dart';
 import '../modules/onboarding/views/onboarding_view.dart';
+import '../modules/pray/bindings/pray_binding.dart';
+import '../modules/pray/views/pray_view.dart';
+import '../modules/quran/bindings/quran_binding.dart';
+import '../modules/quran/views/quran_view.dart';
+import '../modules/settings/bindings/settings_binding.dart';
+import '../modules/settings/views/settings_view.dart';
 
 part 'app_routes.dart';
 
@@ -43,6 +49,21 @@ class AppPages {
       name: _Paths.DETAIL_OF_SURAH,
       page: () => const DetailOfSurahView(),
       binding: DetailOfSurahBinding(),
+    ),
+    GetPage(
+      name: _Paths.QURAN,
+      page: () => const QuranView(),
+      binding: QuranBinding(),
+    ),
+    GetPage(
+      name: _Paths.SETTINGS,
+      page: () => const SettingsView(),
+      binding: SettingsBinding(),
+    ),
+    GetPage(
+      name: _Paths.PRAY,
+      page: () => const PrayView(),
+      binding: PrayBinding(),
     ),
   ];
 }
