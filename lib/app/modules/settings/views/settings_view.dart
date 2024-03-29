@@ -24,11 +24,10 @@ class SettingsView extends GetView<SettingsController> {
         ),
         centerTitle: true,
       ),
-      body: ListView(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 20),
           ListTile(
             onTap: () {
               _showUsernameDialog(context);
@@ -63,6 +62,52 @@ class SettingsView extends GetView<SettingsController> {
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Divider(),
           ),
+          ListTile(
+            onTap: () {
+              _showUsernameDialog(context);
+            },
+            title: Text('Location', style: primaryTextStyle),
+            trailing: const Icon(
+              Icons.arrow_forward_ios,
+              size: 18,
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Divider(),
+          ),
+          ListTile(
+            onTap: () {
+              _showUsernameDialog(context);
+            },
+            title: Text('Audio', style: primaryTextStyle),
+            trailing: const Icon(
+              Icons.arrow_forward_ios,
+              size: 18,
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Divider(),
+          ),
+          Spacer(), // Spacer untuk menempatkan row ke bagian bawah
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Developed by', style: secondaryTextStyle),
+                  const SizedBox(width: 5),
+                  Text(
+                    'Muhammad Lazuardi Timur',
+                    style: primaryTextStyle.copyWith(fontSize: 14),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -77,9 +122,11 @@ class SettingsView extends GetView<SettingsController> {
       middleText: 'Enter your username',
       content: TextField(
         controller: controller.usernameController,
-        decoration: const InputDecoration(
-          hintText: 'Username',
-        ),
+        decoration: InputDecoration(
+            hintText: 'Username',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),),
       ),
       textCancel: 'Cancel',
       textConfirm: 'Confirm',
