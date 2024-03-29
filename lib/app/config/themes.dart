@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // Color Palette
@@ -21,7 +20,7 @@ TextStyle subtitleStyle = GoogleFonts.poppins(
   color: appLightBlue,
 );
 
-TextStyle arabicStyle = TextStyle(
+TextStyle arabicStyle = const TextStyle(
   fontSize: 24,
   fontWeight: FontWeight.w500,
   fontFamily: 'Uthmani',
@@ -44,13 +43,13 @@ ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
   primaryColor: Colors.white,
   scaffoldBackgroundColor: Colors.white,
-  appBarTheme: AppBarTheme(
+  appBarTheme: const AppBarTheme(
     backgroundColor: Colors.white,
   ),
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     backgroundColor: appBlue,
   ),
-  
+
 );
 
 ThemeData darkTheme = ThemeData(
@@ -60,8 +59,8 @@ ThemeData darkTheme = ThemeData(
   appBarTheme: AppBarTheme(
     backgroundColor: primaryDarkColor,
   ),
-  textTheme: TextTheme(),
-  floatingActionButtonTheme: FloatingActionButtonThemeData(
+  textTheme: const TextTheme(),
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: Color(0xff0174BE),
   ),
 );
