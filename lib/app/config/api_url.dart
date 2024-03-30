@@ -3,10 +3,10 @@ class Api {
   static const dateHijriUrl = 'https://api.aladhan.com/v1/gToH/';
 
   // (quran, hadits, pilihan, harian, ibadah, haji, lainnya)
-  static const doaUrl = 'https://api.dikiotang.com/doa/';
+  static const doaUrl = 'https://api.dikiotang.com/doa';
 
   // (pagi, sore,solat)
-  static const dzikirUrl = 'https://api.dikiotang.com/dzikir/';
+  static const dzikirUrl = 'https://api.dikiotang.com/dzikir';
   static const asmaulHusnaUrl =
       'https://islamic-api-zhirrr.vercel.app/api/asmaulhusna';
 
