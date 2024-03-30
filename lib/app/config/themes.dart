@@ -6,7 +6,7 @@ Color primaryDarkColor = const Color(0xff040C23);
 Color appBlue = const Color(0xff4AA8FF);
 Color appLightBlue = const Color(0xff749BC2);
 Color appOrange = const Color(0xffF8CBA6);
-Color appGray = const Color(0xff61677A);
+Color appGray = const Color(0xff787A91);
 
 // Text Theme
 TextStyle titleStyle = GoogleFonts.poppins(
@@ -49,7 +49,6 @@ ThemeData lightTheme = ThemeData(
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     backgroundColor: appBlue,
   ),
-
 );
 
 ThemeData darkTheme = ThemeData(
