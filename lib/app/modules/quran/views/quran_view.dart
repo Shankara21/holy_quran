@@ -114,7 +114,7 @@ class QuranView extends GetView<QuranController> {
                                 height: 5,
                               ),
                               Text(
-                                'Ayah no : 207',
+                                'Ayah no : 7',
                                 style: primaryTextStyle.copyWith(
                                   fontSize: 14,
                                   color: Colors.white,
@@ -150,6 +150,12 @@ class QuranView extends GetView<QuranController> {
                 unselectedLabelColor: appGray,
                 indicatorSize: TabBarIndicatorSize.tab,
                 indicatorColor: appBlue,
+                labelStyle: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+                unselectedLabelStyle: const TextStyle(
+                  fontWeight: FontWeight.normal,
+                ),
               ),
               Expanded(
                 child: TabBarView(
@@ -217,8 +223,46 @@ class QuranView extends GetView<QuranController> {
                         );
                       },
                     ),
-                    const Center(
-                      child: Text('Doa'),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Obx(
+                        () => GridView.count(
+                          crossAxisCount: 2,
+                          children: List.generate(
+                            controller.listDoa.length,
+                            (index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Card(
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.circular(10),
+                                    onTap: () {
+                                      Get.toNamed(
+                                          controller.listDoa[index]['url']);
+                                    },
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Image.asset(
+                                          controller.listDoa[index]['icon'],
+                                          width: 100,
+                                          height: 100,
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Text(
+                                          controller.listDoa[index]['title'],
+                                          style: primaryTextStyle,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
                     ),
                     FutureBuilder<List<Surah>>(
                       future: controller.getAllSurah(),

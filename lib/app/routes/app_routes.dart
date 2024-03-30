@@ -11,6 +11,13 @@ abstract class Routes {
   static const QURAN = _Paths.QURAN;
   static const SETTINGS = _Paths.SETTINGS;
   static const PRAY = _Paths.PRAY;
+  static const DOA = _Paths.DOA;
+  static const DZIKIR = _Paths.DZIKIR;
+  static const HADITH = _Paths.HADITH;
+  static const SHALAT = _Paths.SHALAT;
+  static const HADITH_BY_MAHZAB = _Paths.HADITH_BY_MAHZAB;
+  static const HADITH_RANGE = _Paths.HADITH_RANGE;
+  static const DZIKIR_BY_CATEGORY = _Paths.DZIKIR_BY_CATEGORY;
 }
 
 abstract class _Paths {
@@ -23,4 +30,11 @@ abstract class _Paths {
   static const QURAN = '/quran';
   static const SETTINGS = '/settings';
   static const PRAY = '/pray';
+  static const DOA = '/doa';
+  static const DZIKIR = '/dzikir';
+  static const HADITH = '/hadith';
+  static const SHALAT = '/shalat';
+  static const HADITH_BY_MAHZAB = '/hadith-by-mahzab';
+  static const HADITH_RANGE = '/hadith-range';
+  static const DZIKIR_BY_CATEGORY = '/dzikir-by-category';
 }

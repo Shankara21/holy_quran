@@ -9,6 +9,30 @@ import 'package:http/http.dart' as http;
 class QuranController extends GetxController {
   RxString username = ''.obs;
   final box = GetStorage();
+
+  RxList<dynamic> listDoa = <dynamic>[
+    {
+      'title': 'Doa',
+      'icon': 'assets/doa.png',
+      'url': '/doa',
+    },
+    {
+      'title': 'Dzikir',
+      'icon': 'assets/dzikir.png',
+      'url': '/dzikir',
+    },
+    {
+      'title': 'Hadith',
+      'icon': 'assets/hadith.png',
+      'url': '/hadith',
+    },
+    {
+      'title': 'Shalat',
+      'icon': 'assets/prayer.png',
+      'url': '/shalat',
+    },
+  ].obs;
+
   Future<List<Surah>> getAllSurah() async {
     username.value = box.read('username');
     update(['username']);
