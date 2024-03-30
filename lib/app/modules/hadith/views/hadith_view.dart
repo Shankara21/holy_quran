@@ -15,7 +15,7 @@ class HadithView extends GetView<HadithController> {
         title: Row(
           children: [
             Text(
-              'Hadith Page',
+              'Hadith',
               style: titleStyle.copyWith(
                 fontSize: 22,
               ),

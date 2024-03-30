@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-class DetailOfSurahController extends GetxController {
-  //TODO: Implement DetailOfSurahController
+class DzikirByCategoryController extends GetxController {
+  //TODO: Implement DzikirByCategoryController
 
   final count = 0.obs;
   @override
