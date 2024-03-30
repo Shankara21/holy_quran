@@ -68,8 +68,7 @@ class DzikirView extends GetView<DzikirController> {
                                   onTap: () {
                                     Get.toNamed(
                                       Routes.DZIKIR_BY_CATEGORY,
-                                      arguments: controller.listDzikir[index]
-                                          ['url'],
+                                      arguments: controller.listDzikir[index],
                                     );
                                   },
                                   child: Column(
@@ -102,7 +101,7 @@ class DzikirView extends GetView<DzikirController> {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return Center(
+                          return const Center(
                             child: CircularProgressIndicator(
                               color: Colors.blue,
                             ),
@@ -110,7 +109,10 @@ class DzikirView extends GetView<DzikirController> {
                         }
                         if (!snapshot.hasData || snapshot.data!.isEmpty) {
                           return Center(
-                            child: Text("Data tidak ditemukan"),
+                            child: Text(
+                              "Data tidak ditemukan",
+                              style: primaryTextStyle,
+                            ),
                           );
                         }
                         return Directionality(
@@ -136,33 +138,33 @@ class DzikirView extends GetView<DzikirController> {
                                         child: Column(
                                           children: [
                                             Text(
-                                              "${asmaulHusna.arabic}",
+                                              asmaulHusna.arabic,
                                               style: arabicStyle.copyWith(
                                                 fontSize: 40,
                                               ),
                                             ),
-                                            SizedBox(height: 5),
+                                            const SizedBox(height: 5),
                                             Text(
-                                              "${asmaulHusna.latin}",
+                                              asmaulHusna.latin,
                                               style: secondaryTextStyle,
                                             ),
-                                            SizedBox(height: 5),
+                                            const SizedBox(height: 5),
                                             Text(
                                               textAlign: TextAlign.center,
-                                              "${asmaulHusna.translationEn}",
+                                              asmaulHusna.translationEn,
                                               style: primaryTextStyle.copyWith(
                                                 fontSize: 16,
                                               ),
                                             ),
-                                            SizedBox(height: 5),
+                                            const SizedBox(height: 5),
                                             Text(
                                               textAlign: TextAlign.center,
-                                              '"${asmaulHusna.translationId})"',
+                                              '${asmaulHusna.translationId}',
                                               style: primaryTextStyle.copyWith(
                                                 fontSize: 16,
                                               ),
                                             ),
-                                            SizedBox(height: 5),
+                                            const SizedBox(height: 5),
                                           ],
                                         ),
                                       ),
@@ -171,7 +173,10 @@ class DzikirView extends GetView<DzikirController> {
                                           onPressed: () {
                                             Get.back();
                                           },
-                                          child: Text("Tutup"),
+                                          child: Text(
+                                            "Tutup",
+                                            style: secondaryTextStyle,
+                                          ),
                                         ),
                                       ],
                                     );
@@ -186,13 +191,13 @@ class DzikirView extends GetView<DzikirController> {
                                       children: [
                                         Text(
                                           textAlign: TextAlign.center,
-                                          "${asmaulHusna.arabic}",
+                                          asmaulHusna.arabic,
                                           style: arabicStyle,
                                         ),
-                                        SizedBox(height: 5),
+                                        const SizedBox(height: 5),
                                         Text(
                                           textAlign: TextAlign.center,
-                                          "${asmaulHusna.latin}",
+                                          asmaulHusna.latin,
                                           style: secondaryTextStyle,
                                         ),
                                       ],

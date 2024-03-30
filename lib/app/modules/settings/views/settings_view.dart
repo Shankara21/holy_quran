@@ -15,7 +15,7 @@ class SettingsView extends GetView<SettingsController> {
         title: Row(
           children: [
             Text(
-              'Settings Page',
+              'Settings',
               style: titleStyle.copyWith(
                 fontSize: 22,
               ),
@@ -122,11 +122,9 @@ class SettingsView extends GetView<SettingsController> {
       middleText: 'Enter your username',
       content: TextField(
         controller: controller.usernameController,
-        decoration: InputDecoration(
-            hintText: 'Username',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),),
+        decoration: const InputDecoration(
+          hintText: 'Username',
+        ),
       ),
       textCancel: 'Cancel',
       textConfirm: 'Confirm',

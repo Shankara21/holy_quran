@@ -6,11 +6,11 @@ import 'package:holy_quran/app/data/models/asmaul_husna.dart';
 import 'package:http/http.dart' as http;
 
 class DzikirController extends GetxController {
-RxList<dynamic> listDzikir = <dynamic>[
+  RxList<dynamic> listDzikir = <dynamic>[
     {
       'title': 'Pagi',
       'icon': 'assets/morning.png',
-      'slug': '/pagi',
+      'url': '/pagi',
     },
     {
       'title': 'Sore',

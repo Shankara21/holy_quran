@@ -34,6 +34,7 @@ class SettingsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    isDark.value = box.read('darkTheme') ?? false;
     usernameController = TextEditingController(text: box.read('username'));
   }
 
