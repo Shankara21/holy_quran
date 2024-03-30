@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:holy_quran/app/config/themes.dart';
 import 'package:holy_quran/app/data/models/hadith.dart';
+import 'package:holy_quran/app/routes/app_pages.dart';
 import '../controllers/hadith_by_mahzab_controller.dart';
 
 class HadithByMahzabView extends GetView<HadithByMahzabController> {
@@ -9,8 +10,7 @@ class HadithByMahzabView extends GetView<HadithByMahzabController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.getUrl(hadith.available, hadith.name,
-        hadith.id); // Memanggil getUrl dengan data dari hadith
+    controller.getUrl(hadith.available, hadith.name, hadith.id);
 
     return Scaffold(
       appBar: AppBar(
@@ -45,7 +45,9 @@ class HadithByMahzabView extends GetView<HadithByMahzabController> {
                   ),
                   title: Text(data['name']),
                   subtitle: Text(data['amount']),
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed(Routes.HADITH_RANGE, arguments: data);
+                  },
                 ),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
