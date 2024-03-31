@@ -34,7 +34,7 @@ class HomeView extends GetView<HomeController> {
       case 2:
         return const SettingsView();
       default:
-        return const QuranView();
+        return const PrayView();
     }
   }
 

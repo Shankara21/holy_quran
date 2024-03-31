@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  var selectedIndex = 0.obs;
+  var selectedIndex = 1.obs;
 
   List<Map<String, dynamic>> itemNavbar = [
     {
@@ -9,11 +9,11 @@ class HomeController extends GetxController {
       'icon': 'assets/quran_icon.png',
     },
     {
-      'title': 'Sholat',
+      'title': 'Shalat',
       'icon': 'assets/pray_icon.png',
     },
     {
-      'title': 'Setting',
+      'title': 'Settings',
       'icon': 'assets/settings_icon.png',
     },
   ];

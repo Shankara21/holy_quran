@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:holy_quran/app/config/themes.dart';
+import 'package:holy_quran/app/data/models/city.dart';
+import 'package:holy_quran/app/data/models/province.dart';
 
 import '../controllers/settings_controller.dart';
 
@@ -10,6 +12,7 @@ class SettingsView extends GetView<SettingsController> {
   @override
   Widget build(BuildContext context) {
     Get.put(SettingsController());
+    controller.getAllProvince();
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -64,7 +67,7 @@ class SettingsView extends GetView<SettingsController> {
           ),
           ListTile(
             onTap: () {
-              _showUsernameDialog(context);
+              _showLocationDialog(context);
             },
             title: Text('Location', style: primaryTextStyle),
             trailing: const Icon(
@@ -131,6 +134,116 @@ class SettingsView extends GetView<SettingsController> {
       onConfirm: () {
         controller.saveUsername();
       },
+    );
+  }
+
+  void _showLocationDialog(BuildContext context) {
+    Get.defaultDialog(
+      title: "Your Location",
+      content: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            _dropdownProvince('Province'),
+            Obx(() {
+              if (controller.cities.isNotEmpty) {
+                return _dropdownCity('City');
+              } else {
+                return const SizedBox();
+              }
+            })
+          ],
+        ),
+      ),
+      actions: [
+        ElevatedButton(
+          onPressed: () {
+            Get.back();
+            controller.cities.clear();
+          },
+          child: Text(
+            "Tutup",
+            style: secondaryTextStyle,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _dropdownProvince(String label) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(label, style: primaryTextStyle),
+          const SizedBox(height: 8),
+          DropdownButtonFormField<Province>(
+            isExpanded: true,
+            items: controller.provinces.map((province) {
+              return DropdownMenuItem<Province>(
+                value: province,
+                child: Text(
+                    province.name), // Assuming Province has a 'name' property
+              );
+            }).toList(),
+            onChanged: (Province? selectedProvince) {
+              if (selectedProvince != null) {
+                controller.getCities(selectedProvince.id);
+              }
+            },
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              hintText: 'Select $label',
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _dropdownCity(String label) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(label, style: primaryTextStyle),
+          const SizedBox(height: 8),
+          DropdownButtonFormField<City>(
+            isExpanded: true,
+            items: controller.cities.map((city) {
+              return DropdownMenuItem<City>(
+                value: city,
+                child: Text(city.name),
+              );
+            }).toList(),
+            onChanged: (City? selectedCity) {
+              if (selectedCity != null) {
+                Map<String, dynamic> selectedCityData = {
+                  "coordinate": {
+                    "latitude": selectedCity.coordinate.latitude,
+                    "longitude": selectedCity.coordinate.longitude
+                  },
+                  "id": selectedCity.id,
+                  "name": selectedCity.name,
+                  "slug": selectedCity.slug,
+                  "provinceId": selectedCity.provinceId
+                };
+                controller.saveLocation(selectedCityData);
+              }
+            },
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              hintText: 'Select $label',
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

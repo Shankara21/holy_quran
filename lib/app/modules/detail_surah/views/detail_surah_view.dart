@@ -135,7 +135,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
               var dataSurah = snapshot.data;
               return ListView.builder(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: snapshot.data!.ayat!.length,
                 itemBuilder: (context, index) {
                   Ayat ayat = snapshot.data!.ayat![index];
@@ -144,7 +144,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                     children: [
                       Card(
                         child: Padding(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             vertical: 5,
                             horizontal: 10,
                           ),

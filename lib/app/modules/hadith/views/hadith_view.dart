@@ -29,7 +29,9 @@ class HadithView extends GetView<HadithController> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                backgroundColor: appBlue,
+              ),
             );
           } else {
             if (snapshot.hasError) {

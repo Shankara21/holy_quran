@@ -12,6 +12,7 @@ class QuranView extends GetView<QuranController> {
   @override
   Widget build(BuildContext context) {
     Get.put(QuranController());
+    controller.getDateNow();
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -58,11 +59,8 @@ class QuranView extends GetView<QuranController> {
               ),
               Obx(
                 () => Text(
-                  textAlign: TextAlign.start,
-                  controller.date.value.toString(),
-                  style: titleStyle.copyWith(
-                    fontSize: 18,
-                  ),
+                  '${controller.dateHijri.value.namabulan} ${controller.dateHijri.value.tanggal}, ${controller.dateHijri.value.tahun} H',
+                  style: titleStyle.copyWith(fontSize: 18),
                 ),
               ),
               const SizedBox(

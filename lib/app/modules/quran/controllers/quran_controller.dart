@@ -3,12 +3,15 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:holy_quran/app/config/api_url.dart';
+import 'package:holy_quran/app/data/models/date_hijri.dart';
 import 'package:holy_quran/app/data/models/surah.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class QuranController extends GetxController {
   RxString username = ''.obs;
   final box = GetStorage();
+  Rx<DateHijri> dateHijri = DateHijri().obs;
 
   RxList<dynamic> listDoa = <dynamic>[
     {
@@ -48,22 +51,16 @@ class QuranController extends GetxController {
     }
   }
 
-  late var date = ''.obs;
-  Future<dynamic> getHijriDate() async {
-    DateTime dateNow = DateTime.now();
-    String formattedDate = "${dateNow.day}-${dateNow.month}-${dateNow.year}";
-    Uri url = Uri.parse(Api.dateHijriUrl + "/${formattedDate}");
+  Future<void> getDateNow() async {
+    var dateNow = DateFormat('yyyy/M/d').format(DateTime.now());
+    Uri url = Uri.parse("${Api.altDateHijriUrl}/$dateNow");
     var res = await http.get(url);
-    var rawData = json.decode(res.body)['data']['hijri'];
-    var data =
-        "${rawData['day']} ${rawData['month']['en']} ${rawData['year']} H";
-    date.value = data;
-    update();
+    dateHijri.value = DateHijri.fromJson(json.decode(res.body));
   }
 
   @override
   void onInit() {
-    getHijriDate();
+    getDateNow();
     super.onInit();
   }
 
