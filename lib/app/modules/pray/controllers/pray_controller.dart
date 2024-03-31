@@ -47,7 +47,6 @@ class PrayController extends GetxController {
       }
     });
     prayToday.value = prayTimeNow!.toJson();
-
     DateTime now = DateTime.now();
     listPrayTime.clear();
     prayToday['time'].forEach((key, value) {
@@ -59,6 +58,10 @@ class PrayController extends GetxController {
       DateTime parsedTimeNow = DateFormat('HH:mm').parse(timeNow);
       DateTime parsedPrayerTimeNow = DateFormat('HH:mm').parse(prayerTimeNow);
 
+      print({
+        'name': key,
+        'time': value,
+      });
       if (parsedPrayerTimeNow.isAfter(parsedTimeNow)) {
         listPrayTime.add({
           'name': key,
@@ -66,7 +69,7 @@ class PrayController extends GetxController {
         });
       }
     });
-    print(listPrayTime);
+    // print(listPrayTime);
     nextPrayTime.value = listPrayTime.first;
     update();
   }
@@ -81,7 +84,6 @@ class PrayController extends GetxController {
           prayerTime.hour, prayerTime.minute);
 
       Duration difference = finalPrayerTime.difference(today);
-
       int hours = difference.inHours;
       int minutes = difference.inMinutes.remainder(60);
       int seconds = difference.inSeconds.remainder(60);
@@ -124,7 +126,7 @@ class PrayController extends GetxController {
       String formattedTime = '$formattedHour:$formattedMinute';
       timeNowString.value = formattedTime;
       if (nextPrayTime.isNotEmpty && nextPrayTime['time'] != null) {
-        // getPrayerTime();
+        getPrayerTime();
         _updateNextPrayTime();
       }
     });
