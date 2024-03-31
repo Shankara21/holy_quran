@@ -71,11 +71,19 @@ class PrayView extends GetView<PrayController> {
                                 ),
                               ),
                               Obx(
-                                () => Text(
-                                  '${controller.dateHijri.value.namabulan} ${controller.dateHijri.value.tanggal}, ${controller.dateHijri.value.tahun} H',
-                                  style: titleStyle.copyWith(
-                                      color: primaryDarkColor, fontSize: 16),
-                                ),
+                                () {
+                                  if (controller.dateHijri.value.namabulan ==
+                                      null) {
+                                    return const SizedBox();
+                                  } else {
+                                    return Text(
+                                      '${controller.dateHijri.value.namabulan} ${controller.dateHijri.value.tanggal}, ${controller.dateHijri.value.tahun} H',
+                                      style: titleStyle.copyWith(
+                                          color: primaryDarkColor,
+                                          fontSize: 16),
+                                    );
+                                  }
+                                },
                               ),
                             ],
                           ),
@@ -105,28 +113,33 @@ class PrayView extends GetView<PrayController> {
                               Obx(
                                 () {
                                   if (controller.nextPrayTime.isEmpty) {
-                                    return Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Isya',
-                                          style: titleStyle.copyWith(
-                                            fontSize: 32,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        Text(
-                                          controller.prayToday['time']?['isya'],
-                                          style: titleStyle.copyWith(
-                                            fontSize: 52,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ],
-                                    );
+                                    return controller.prayToday['time']
+                                                ?['isya'] ==
+                                            null
+                                        ? const SizedBox()
+                                        : Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Isya',
+                                                style: titleStyle.copyWith(
+                                                  fontSize: 32,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              Text(
+                                                controller.prayToday['time']
+                                                    ?['isya'],
+                                                style: titleStyle.copyWith(
+                                                  fontSize: 52,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
+                                          );
                                   } else {
                                     return Column(
                                       mainAxisAlignment:
@@ -135,7 +148,9 @@ class PrayView extends GetView<PrayController> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          controller.nextPrayTime['name'],
+                                          controller.capitalizeFirst(
+                                            controller.nextPrayTime['name'],
+                                          ),
                                           style: titleStyle.copyWith(
                                             fontSize: 32,
                                             color: Colors.white,
@@ -166,12 +181,11 @@ class PrayView extends GetView<PrayController> {
                                     return const SizedBox();
                                   } else {
                                     String hours = controller
-                                        .nextPrayTime['difference']['hours'];
+                                        .nextPrayTime['difference']?['hours'];
                                     String minutes = controller
-                                        .nextPrayTime['difference']['minutes'];
+                                        .nextPrayTime['difference']?['minutes'];
                                     String seconds = controller
-                                        .nextPrayTime['difference']['seconds'];
-
+                                        .nextPrayTime['difference']?['seconds'];
                                     return Text(
                                       '-$hours : $minutes : $seconds',
                                       style: titleStyle.copyWith(

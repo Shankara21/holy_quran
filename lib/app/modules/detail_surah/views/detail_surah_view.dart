@@ -152,8 +152,8 @@ class DetailSurahView extends GetView<DetailSurahController> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               CircleAvatar(
-                                child: Text("${index + 1}"),
                                 backgroundColor: appBlue,
+                                child: Text("${index + 1}"),
                               ),
                               Row(
                                 children: [

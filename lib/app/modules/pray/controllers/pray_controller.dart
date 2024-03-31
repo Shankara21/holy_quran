@@ -57,11 +57,6 @@ class PrayController extends GetxController {
 
       DateTime parsedTimeNow = DateFormat('HH:mm').parse(timeNow);
       DateTime parsedPrayerTimeNow = DateFormat('HH:mm').parse(prayerTimeNow);
-
-      print({
-        'name': key,
-        'time': value,
-      });
       if (parsedPrayerTimeNow.isAfter(parsedTimeNow)) {
         listPrayTime.add({
           'name': key,
@@ -84,23 +79,29 @@ class PrayController extends GetxController {
           prayerTime.hour, prayerTime.minute);
 
       Duration difference = finalPrayerTime.difference(today);
-      int hours = difference.inHours;
-      int minutes = difference.inMinutes.remainder(60);
-      int seconds = difference.inSeconds.remainder(60);
+      if (difference.inSeconds > 0) {
+        int hours = difference.inHours;
+        int minutes = difference.inMinutes.remainder(60);
+        int seconds = difference.inSeconds.remainder(60);
 
-      String formattedHours = hours < 10 ? '0$hours' : '$hours';
-      String formattedMinutes = minutes < 10 ? '0$minutes' : '$minutes';
-      String formattedSeconds = seconds < 10 ? '0$seconds' : '$seconds';
+        String formattedHours = hours < 10 ? '0$hours' : '$hours';
+        String formattedMinutes = minutes < 10 ? '0$minutes' : '$minutes';
+        String formattedSeconds = seconds < 10 ? '0$seconds' : '$seconds';
 
-      nextPrayTime['difference'] = {
-        'hours': formattedHours,
-        'minutes': formattedMinutes,
-        'seconds': formattedSeconds
-      };
-      nextPrayTime['name'] = nextPrayTime['name'].toString().capitalizeFirst;
-      update();
+        nextPrayTime['difference'] = {
+          'hours': formattedHours,
+          'minutes': formattedMinutes,
+          'seconds': formattedSeconds
+        };
+        // nextPrayTime['name'] = nextPrayTime['name'].toString().capitalizeFirst;
+        update();
+      } else {
+        getPrayerTime();
+      }
     }
   }
+
+  String capitalizeFirst(String s) => s[0].toUpperCase() + s.substring(1);
 
   Future<void> getDateNow() async {
     var dateNow = DateFormat('yyyy/M/d').format(DateTime.now());
@@ -126,7 +127,7 @@ class PrayController extends GetxController {
       String formattedTime = '$formattedHour:$formattedMinute';
       timeNowString.value = formattedTime;
       if (nextPrayTime.isNotEmpty && nextPrayTime['time'] != null) {
-        getPrayerTime();
+        // getPrayerTime();
         _updateNextPrayTime();
       }
     });
