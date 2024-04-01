@@ -37,8 +37,6 @@ class QuranController extends GetxController {
   ].obs;
 
   Future<List<Surah>> getAllSurah() async {
-    username.value = box.read('username');
-    update(['username']);
     Uri url = Uri.parse("${Api.quranUrl}/surat");
     var res = await http.get(url);
 
@@ -48,6 +46,15 @@ class QuranController extends GetxController {
       return [];
     } else {
       return data.map((e) => Surah.fromJson(e)).toList();
+    }
+  }
+
+  void getUsername() {
+    if (username.value == '') {
+      username.value = '';
+    } else {
+      username.value = box.read('username');
+      update(['username']);
     }
   }
 

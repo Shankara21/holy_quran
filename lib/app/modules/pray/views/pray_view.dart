@@ -11,8 +11,7 @@ class PrayView extends GetView<PrayController> {
   @override
   Widget build(BuildContext context) {
     Get.put(PrayController());
-    controller.getDateNow();
-    controller.getPrayerTime();
+    controller.getLocation();
     return Scaffold(
       body: Column(
         children: [
@@ -46,7 +45,7 @@ class PrayView extends GetView<PrayController> {
                             children: [
                               Obx(
                                 () => Text(
-                                  controller.location['name'],
+                                  controller.location['name'] ?? 'No Location',
                                   style: titleStyle.copyWith(
                                       color: primaryDarkColor, fontSize: 18),
                                 ),
@@ -209,110 +208,137 @@ class PrayView extends GetView<PrayController> {
           Expanded(
             child: Obx(
               () {
-                return SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 8,
-                  ),
-                  child: controller.listPrayTime.isNotEmpty ||
-                          controller.prayToday.isNotEmpty
-                      ? Column(
-                          children: [
-                            times(
-                              name: 'Imsak',
-                              time: controller.prayToday['time']?['imsak'],
-                              isCurrent:
-                                  controller.listPrayTime.isNotEmpty == true
-                                      ? (controller.listPrayTime[0]['name'] ==
-                                              'imsak'
-                                          ? true
-                                          : false)
-                                      : false,
-                            ),
-                            times(
-                              name: 'Shubuh',
-                              time: controller.prayToday['time']?['subuh'],
-                              isCurrent:
-                                  controller.listPrayTime.isNotEmpty == true
-                                      ? (controller.listPrayTime[0]['name'] ==
-                                              'shubuh'
-                                          ? true
-                                          : false)
-                                      : false,
-                            ),
-                            times(
-                              name: 'Terbit',
-                              time: controller.prayToday['time']?['terbit'],
-                              isCurrent:
-                                  controller.listPrayTime.isNotEmpty == true
-                                      ? (controller.listPrayTime[0]['name'] ==
-                                              'terbit'
-                                          ? true
-                                          : false)
-                                      : false,
-                            ),
-                            times(
-                              name: 'Dhuha',
-                              time: controller.prayToday['time']?['dhuha'],
-                              isCurrent:
-                                  controller.listPrayTime.isNotEmpty == true
-                                      ? (controller.listPrayTime[0]['name'] ==
-                                              'dhuha'
-                                          ? true
-                                          : false)
-                                      : false,
-                            ),
-                            times(
-                              name: 'Dzuhur',
-                              time: controller.prayToday['time']?['dzuhur'],
-                              isCurrent:
-                                  controller.listPrayTime.isNotEmpty == true
-                                      ? (controller.listPrayTime[0]['name'] ==
-                                              'dzuhur'
-                                          ? true
-                                          : false)
-                                      : false,
-                            ),
-                            times(
-                              name: 'Ashar',
-                              time: controller.prayToday['time']?['ashar'],
-                              isCurrent:
-                                  controller.listPrayTime.isNotEmpty == true
-                                      ? (controller.listPrayTime[0]['name'] ==
-                                              'ashar'
-                                          ? true
-                                          : false)
-                                      : false,
-                            ),
-                            times(
-                              name: 'Maghrib',
-                              time: controller.prayToday['time']?['maghrib'],
-                              isCurrent:
-                                  controller.listPrayTime.isNotEmpty == true
-                                      ? (controller.listPrayTime[0]['name'] ==
-                                              'maghrib'
-                                          ? true
-                                          : false)
-                                      : false,
-                            ),
-                            times(
-                              name: 'Isya',
-                              time: controller.prayToday['time']?['isya'],
-                              isCurrent:
-                                  controller.listPrayTime.isNotEmpty == true
-                                      ? (controller.listPrayTime[0]['name'] ==
-                                              'isya'
-                                          ? true
-                                          : false)
-                                      : true,
-                            ),
-                          ],
-                        )
-                      : Center(
-                          child: CircularProgressIndicator(
-                            color: appBlue,
-                          ),
+                return controller.location['name'] != null
+                    ? SingleChildScrollView(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 8,
                         ),
-                );
+                        child: controller.listPrayTime.isNotEmpty ||
+                                controller.prayToday.isNotEmpty
+                            ? Column(
+                                children: [
+                                  times(
+                                    name: 'Imsak',
+                                    time: controller.prayToday['time']
+                                        ?['imsak'],
+                                    isCurrent: controller
+                                                .listPrayTime.isNotEmpty ==
+                                            true
+                                        ? (controller.listPrayTime[0]['name'] ==
+                                                'imsak'
+                                            ? true
+                                            : false)
+                                        : false,
+                                  ),
+                                  times(
+                                    name: 'Shubuh',
+                                    time: controller.prayToday['time']
+                                        ?['subuh'],
+                                    isCurrent: controller
+                                                .listPrayTime.isNotEmpty ==
+                                            true
+                                        ? (controller.listPrayTime[0]['name'] ==
+                                                'shubuh'
+                                            ? true
+                                            : false)
+                                        : false,
+                                  ),
+                                  times(
+                                    name: 'Terbit',
+                                    time: controller.prayToday['time']
+                                        ?['terbit'],
+                                    isCurrent: controller
+                                                .listPrayTime.isNotEmpty ==
+                                            true
+                                        ? (controller.listPrayTime[0]['name'] ==
+                                                'terbit'
+                                            ? true
+                                            : false)
+                                        : false,
+                                  ),
+                                  times(
+                                    name: 'Dhuha',
+                                    time: controller.prayToday['time']
+                                        ?['dhuha'],
+                                    isCurrent: controller
+                                                .listPrayTime.isNotEmpty ==
+                                            true
+                                        ? (controller.listPrayTime[0]['name'] ==
+                                                'dhuha'
+                                            ? true
+                                            : false)
+                                        : false,
+                                  ),
+                                  times(
+                                    name: 'Dzuhur',
+                                    time: controller.prayToday['time']
+                                        ?['dzuhur'],
+                                    isCurrent: controller
+                                                .listPrayTime.isNotEmpty ==
+                                            true
+                                        ? (controller.listPrayTime[0]['name'] ==
+                                                'dzuhur'
+                                            ? true
+                                            : false)
+                                        : false,
+                                  ),
+                                  times(
+                                    name: 'Ashar',
+                                    time: controller.prayToday['time']
+                                        ?['ashar'],
+                                    isCurrent: controller
+                                                .listPrayTime.isNotEmpty ==
+                                            true
+                                        ? (controller.listPrayTime[0]['name'] ==
+                                                'ashar'
+                                            ? true
+                                            : false)
+                                        : false,
+                                  ),
+                                  times(
+                                    name: 'Maghrib',
+                                    time: controller.prayToday['time']
+                                        ?['maghrib'],
+                                    isCurrent: controller
+                                                .listPrayTime.isNotEmpty ==
+                                            true
+                                        ? (controller.listPrayTime[0]['name'] ==
+                                                'maghrib'
+                                            ? true
+                                            : false)
+                                        : false,
+                                  ),
+                                  times(
+                                    name: 'Isya',
+                                    time: controller.prayToday['time']?['isya'],
+                                    isCurrent: controller
+                                                .listPrayTime.isNotEmpty ==
+                                            true
+                                        ? (controller.listPrayTime[0]['name'] ==
+                                                'isya'
+                                            ? true
+                                            : false)
+                                        : true,
+                                  ),
+                                ],
+                              )
+                            : Center(
+                                child: CircularProgressIndicator(
+                                  color: appBlue,
+                                ),
+                              ),
+                      )
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            textAlign: TextAlign.center,
+                            'Please select your location, to get the prayer time.',
+                            style: primaryTextStyle,
+                          ),
+                        ],
+                      );
               },
             ),
           )

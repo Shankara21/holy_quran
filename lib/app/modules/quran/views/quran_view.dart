@@ -13,6 +13,7 @@ class QuranView extends GetView<QuranController> {
   Widget build(BuildContext context) {
     Get.put(QuranController());
     controller.getDateNow();
+    controller.getUsername();
     return Scaffold(
       appBar: AppBar(
         title: Row(

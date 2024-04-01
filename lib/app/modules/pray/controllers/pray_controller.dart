@@ -30,12 +30,21 @@ class PrayController extends GetxController {
     _updateNextPrayTime();
   }
 
-  Future<void> getPrayerTime() async {
-    Prayer? prayTimeNow;
+  void getLocation() {
     var savedLocation = box.read('location');
     if (savedLocation != null) {
       location.value = savedLocation;
+      getPrayerTime();
+      getDateNow();
+      _startTimer();
+      _updateDateNow();
+      _updateNextPrayTime();
     }
+  }
+
+  Future<void> getPrayerTime() async {
+    Prayer? prayTimeNow;
+
     var dateNow = DateFormat('yyyy-M-d').format(DateTime.now());
     Uri url = Uri.parse(
         "${Api.locationUrl}/prayer?latitude=${location['coordinate']['latitude']}&longitude=${location['coordinate']['longitude']}");
@@ -64,7 +73,6 @@ class PrayController extends GetxController {
         });
       }
     });
-    // print(listPrayTime);
     nextPrayTime.value = listPrayTime.first;
     update();
   }
@@ -93,7 +101,6 @@ class PrayController extends GetxController {
           'minutes': formattedMinutes,
           'seconds': formattedSeconds
         };
-        // nextPrayTime['name'] = nextPrayTime['name'].toString().capitalizeFirst;
         update();
       } else {
         getPrayerTime();
@@ -117,24 +124,32 @@ class PrayController extends GetxController {
   }
 
   void _startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      timeNow(DateTime.now());
-      DateTime currentTime = DateTime.now();
-      int hour = currentTime.hour;
-      int minute = currentTime.minute;
-      String formattedHour = hour < 10 ? '0$hour' : '$hour';
-      String formattedMinute = minute < 10 ? '0$minute' : '$minute';
-      String formattedTime = '$formattedHour:$formattedMinute';
-      timeNowString.value = formattedTime;
-      if (nextPrayTime.isNotEmpty && nextPrayTime['time'] != null) {
-        // getPrayerTime();
-        _updateNextPrayTime();
-      }
-    });
+    if (location.isEmpty) {
+      getLocation();
+    } else {
+      _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        timeNow(DateTime.now());
+        DateTime currentTime = DateTime.now();
+        int hour = currentTime.hour;
+        int minute = currentTime.minute;
+        String formattedHour = hour < 10 ? '0$hour' : '$hour';
+        String formattedMinute = minute < 10 ? '0$minute' : '$minute';
+        String formattedTime = '$formattedHour:$formattedMinute';
+        timeNowString.value = formattedTime;
+        if (nextPrayTime.isNotEmpty && nextPrayTime['time'] != null) {
+          // getPrayerTime();
+          _updateNextPrayTime();
+        }
+      });
+    }
   }
 
   void _updateDateNow() {
-    final formatter = DateFormat.yMMMMd('en_US');
-    dateNow.value = formatter.format(DateTime.now());
+    if (location.isEmpty) {
+      getLocation();
+    } else {
+      final formatter = DateFormat.yMMMMd('en_US');
+      dateNow.value = formatter.format(DateTime.now());
+    }
   }
 }
