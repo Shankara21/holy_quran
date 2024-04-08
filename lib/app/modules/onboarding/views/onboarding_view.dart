@@ -21,7 +21,7 @@ class OnboardingView extends GetView<OnboardingController> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      'Eternal Quran',
+                      'Holy Quran',
                       style: titleStyle,
                     ),
                     const SizedBox(height: 16),

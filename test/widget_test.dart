@@ -1,16 +1,16 @@
-import 'dart:convert';
+// import 'dart:convert';
 
-import 'package:holy_quran/app/config/api_url.dart';
+// import 'package:holy_quran/app/config/api_url.dart';
 // import 'package:holy_quran/app/data/models/bacaan_shalat.dart';
 // import 'package:holy_quran/app/data/models/hadith.dart';
 // import 'package:holy_quran/app/data/models/niat_shalat.dart';
 
-import 'package:http/http.dart' as http;
+// import 'package:http/http.dart' as http;
 
 void main() async {
-  Uri url = Uri.parse("${Api.niatSholatUrl}");
+  // Uri url = Uri.parse("${Api.niatSholatUrl}");
 
-  var res = await http.get(url);
+  // var res = await http.get(url);
 
   // List data = (json.decode(res.body) as Map<String, dynamic>)['data'];
   // Surah data = Surah.fromJson(json.decode(res.body)['data']);

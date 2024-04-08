@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:get/get.dart';
 import 'package:holy_quran/app/config/themes.dart';
@@ -7,6 +8,7 @@ import 'package:holy_quran/app/data/models/surah.dart';
 import 'package:holy_quran/app/routes/app_pages.dart';
 
 import '../controllers/detail_surah_controller.dart';
+import 'package:html/parser.dart';
 
 class DetailSurahView extends GetView<DetailSurahController> {
   DetailSurahView({Key? key}) : super(key: key);
@@ -20,7 +22,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
     int nomor;
     surah = args!['surah'];
     nomor = args['id'];
-
+    var processedDeskripsi = parse(surah.deskripsi);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -35,84 +37,92 @@ class DetailSurahView extends GetView<DetailSurahController> {
           vertical: 20,
         ),
         children: [
-          Stack(
-            children: [
-              Image.asset('assets/detail.png'),
-              Positioned(
-                top: 50,
-                left: 20,
-                right: 20,
-                child: Column(
-                  children: [
-                    Text(
-                      surah.namaLatin,
-                      style: primaryTextStyle.copyWith(
-                        fontSize: 26,
-                        color: Colors.white,
+          GestureDetector(
+            onTap: () {
+              Get.defaultDialog(
+                title: 'Deskripsi Surah',
+                middleText: processedDeskripsi.body!.text,
+              );
+            },
+            child: Stack(
+              children: [
+                Image.asset('assets/detail.png'),
+                Positioned(
+                  top: 50,
+                  left: 20,
+                  right: 20,
+                  child: Column(
+                    children: [
+                      Text(
+                        surah.namaLatin,
+                        style: primaryTextStyle.copyWith(
+                          fontSize: 26,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                    Text(
-                      surah.arti,
-                      style: primaryTextStyle.copyWith(
-                        fontSize: 16,
-                        color: Colors.white,
+                      Text(
+                        surah.arti,
+                        style: primaryTextStyle.copyWith(
+                          fontSize: 16,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                    // garis divider
-                    const Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 30,
-                        vertical: 10,
+                      // garis divider
+                      const Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 30,
+                          vertical: 10,
+                        ),
+                        child: Divider(
+                          color: Colors.white,
+                          thickness: 0.5,
+                        ),
                       ),
-                      child: Divider(
-                        color: Colors.white,
-                        thickness: 0.5,
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          surah.tempatTurun,
-                          style: primaryTextStyle.copyWith(
-                            color: Colors.white,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            surah.tempatTurun,
+                            style: primaryTextStyle.copyWith(
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        const Text(
-                          '● ',
-                          style: TextStyle(
-                            fontSize: 10,
-                            color: Colors.white,
+                          const SizedBox(
+                            width: 10,
                           ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          surah.jumlahAyat.toString() + ' Ayat',
-                          style: primaryTextStyle.copyWith(
-                            color: Colors.white,
+                          const Text(
+                            '● ',
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 30,
-                        vertical: 20,
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            surah.jumlahAyat.toString() + ' Ayat',
+                            style: primaryTextStyle.copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
-                      child: Image.asset('assets/basmallah.png'),
-                    )
-                  ],
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 30,
+                          vertical: 20,
+                        ),
+                        child: Image.asset('assets/basmallah.png'),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           const SizedBox(
             height: 20,
@@ -272,6 +282,25 @@ class DetailSurahView extends GetView<DetailSurahController> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildDescriptionText(String description) {
+    List<String> parts = description.split(RegExp(r'<\/?i>'));
+
+    List<TextSpan> textSpans = parts.map((part) {
+      if (part.startsWith('<i>') && part.endsWith('</i>')) {
+        return TextSpan(
+          text: part.substring(3, part.length - 4),
+          style: TextStyle(fontStyle: FontStyle.italic),
+        );
+      } else {
+        return TextSpan(text: part);
+      }
+    }).toList();
+
+    return RichText(
+      text: TextSpan(children: textSpans),
     );
   }
 }
