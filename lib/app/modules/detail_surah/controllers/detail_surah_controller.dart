@@ -3,13 +3,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:holy_quran/app/config/api_url.dart';
+import 'package:holy_quran/app/data/models/ayat.dart';
 import 'package:holy_quran/app/data/models/surah.dart';
 import 'package:http/http.dart' as http;
 import 'package:just_audio/just_audio.dart';
 
 class DetailSurahController extends GetxController {
-  RxString audioStatus = 'stop'.obs;
   final player = AudioPlayer();
+  Ayat? lastAyat;
   Rx<Surah> nextSurah = Surah(
     nomor: 0,
     nama: '',
@@ -56,14 +57,24 @@ class DetailSurahController extends GetxController {
     return data;
   }
 
-  void playAudio(String? url) async {
-    if (url != null) {
+  void playAudio(Ayat ayat) async {
+    if (ayat.audio['01'] != null) {
       try {
+        // if (lastAyat == null) {
+        //   lastAyat = ayat;
+        // }
+        lastAyat ??= ayat;
+        lastAyat!.audioStatus = 'stop';
+        lastAyat = ayat;
+        ayat.audioStatus = 'stop';
+        update();
         await player.stop();
-        await player.setUrl(url);
-        audioStatus.value = 'play';
+        await player.setUrl(ayat.audio['01']!);
+        ayat.audioStatus = 'play';
+        update();
         await player.play();
-        audioStatus.value = 'stop';
+        ayat.audioStatus = 'stop';
+        update();
         await player.stop();
       } on PlayerException catch (e) {
         Get.defaultDialog(
@@ -92,10 +103,11 @@ class DetailSurahController extends GetxController {
     }
   }
 
-  void pauseAudio() async {
+  void pauseAudio(Ayat ayat) async {
     try {
       await player.pause();
-      audioStatus.value = 'pause';
+      ayat.audioStatus = 'pause';
+      update();
     } on PlayerException catch (e) {
       Get.defaultDialog(
         title: 'Terjadi Kesahalan',
@@ -114,11 +126,13 @@ class DetailSurahController extends GetxController {
     }
   }
 
-  void resumeAudio() async {
+  void resumeAudio(Ayat ayat) async {
     try {
-      audioStatus.value = 'play';
+      ayat.audioStatus = 'play';
+      update();
       await player.play();
-      audioStatus.value = 'stop';
+      ayat.audioStatus = 'stop';
+      update();
       await player.stop();
     } on PlayerException catch (e) {
       Get.defaultDialog(
@@ -138,10 +152,11 @@ class DetailSurahController extends GetxController {
     }
   }
 
-  void stopAudio() async {
+  void stopAudio(Ayat ayat) async {
     try {
       await player.stop();
-      audioStatus.value = 'stop';
+      ayat.audioStatus = 'stop';
+      update();
     } on PlayerException catch (e) {
       Get.defaultDialog(
         title: 'Terjadi Kesahalan',

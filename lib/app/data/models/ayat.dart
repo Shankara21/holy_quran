@@ -4,6 +4,7 @@ class Ayat {
   String teksLatin;
   String teksIndonesia;
   Map<String, String> audio;
+  String audioStatus;
 
   Ayat({
     required this.nomorAyat,
@@ -11,6 +12,7 @@ class Ayat {
     required this.teksLatin,
     required this.teksIndonesia,
     required this.audio,
+    this.audioStatus = 'stop',
   });
 
   factory Ayat.fromJson(Map<String, dynamic> json) => Ayat(
@@ -28,5 +30,6 @@ class Ayat {
         "teksLatin": teksLatin,
         "teksIndonesia": teksIndonesia,
         "audio": Map.from(audio).map((k, v) => MapEntry<String, dynamic>(k, v)),
+        "audioStatus": audioStatus
       };
 }
