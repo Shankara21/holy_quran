@@ -139,7 +139,7 @@ class QuranView extends GetView<QuranController> {
                     text: 'Doa',
                   ),
                   Tab(
-                    text: 'Tafsir',
+                    text: 'Bookmarks',
                   ),
                   Tab(
                     text: 'Juz',
@@ -263,62 +263,8 @@ class QuranView extends GetView<QuranController> {
                         ),
                       ),
                     ),
-                    FutureBuilder<List<Surah>>(
-                      future: controller.getAllSurah(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                            child: CircularProgressIndicator(
-                              color: Colors.blue,
-                            ),
-                          );
-                        }
-                        if (!snapshot.hasData) {
-                          return const Center(
-                            child: Text("Data tidak ditemukan"),
-                          );
-                        }
-                        return ListView.builder(
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (context, index) {
-                            Surah surah = snapshot.data![index];
-                            return ListTile(
-                              onTap: () {
-                                Get.toNamed(Routes.DETAIL_TAFSIR,
-                                    arguments: surah);
-                              },
-                              leading: Container(
-                                height: 35,
-                                width: 35,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                      'assets/border.png',
-                                    ),
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Text(surah.nomor.toString(),
-                                      style: primaryTextStyle.copyWith()),
-                                ),
-                              ),
-                              title: Text(
-                                "Surah  ${surah.namaLatin}",
-                                style: primaryTextStyle,
-                              ),
-                              subtitle: Text(
-                                "${surah.jumlahAyat} Ayat | ${surah.tempatTurun}",
-                                style: secondaryTextStyle,
-                              ),
-                              trailing: Text(
-                                surah.nama,
-                                style: arabicStyle,
-                              ),
-                            );
-                          },
-                        );
-                      },
+                    const Center(
+                      child: Text('Bookmarks'),
                     ),
                     const Center(
                       child: Text('Juz'),

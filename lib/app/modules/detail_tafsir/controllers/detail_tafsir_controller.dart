@@ -6,7 +6,7 @@ import 'package:holy_quran/app/data/models/tafsir_surah.dart';
 import 'package:http/http.dart' as http;
 
 class DetailTafsirController extends GetxController {
- Future<TafsirSurah> getDetailTafsir(int id) async {
+  Future<TafsirSurah> getDetailTafsir(int id) async {
     Uri url = Uri.parse(Api.quranUrl + '/tafsir/${id}');
     var res = await http.get(url);
 

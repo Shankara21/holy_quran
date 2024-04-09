@@ -50,11 +50,20 @@ class QuranController extends GetxController {
   }
 
   void getUsername() {
+    // if (username.value == '') {
+    //   username.value = '';
+    // } else {
+    //   print(box.read('username'));
+    //   username.value = box.read('username');
+    //   update(['username']);
+    // }
     if (username.value == '') {
-      username.value = '';
-    } else {
-      username.value = box.read('username');
-      update(['username']);
+      if (box.read('username') != null) {
+        username.value = box.read('username');
+        update(['username']);
+      } else {
+        username.value = '';
+      }
     }
   }
 

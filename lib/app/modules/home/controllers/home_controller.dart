@@ -9,6 +9,10 @@ class HomeController extends GetxController {
       'icon': 'assets/quran_icon.png',
     },
     {
+      'title': 'Doa',
+      'icon': 'assets/pray.png',
+    },
+    {
       'title': 'Shalat',
       'icon': 'assets/pray_icon.png',
     },

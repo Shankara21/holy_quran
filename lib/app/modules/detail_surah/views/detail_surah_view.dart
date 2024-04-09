@@ -30,6 +30,17 @@ class DetailSurahView extends GetView<DetailSurahController> {
           style: titleStyle.copyWith(fontSize: 20),
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+               Get.toNamed(Routes.DETAIL_TAFSIR, arguments: surah);
+            },
+            icon: const Icon(
+              Icons.library_books_outlined,
+              size: 28,
+            ), 
+          ),
+        ],
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(
