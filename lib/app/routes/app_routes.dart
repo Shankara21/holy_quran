@@ -18,6 +18,7 @@ abstract class Routes {
   static const HADITH_BY_MAHZAB = _Paths.HADITH_BY_MAHZAB;
   static const HADITH_RANGE = _Paths.HADITH_RANGE;
   static const DZIKIR_BY_CATEGORY = _Paths.DZIKIR_BY_CATEGORY;
+  static const DOA_PAGE = _Paths.DOA_PAGE;
 }
 
 abstract class _Paths {
@@ -37,4 +38,5 @@ abstract class _Paths {
   static const HADITH_BY_MAHZAB = '/hadith-by-mahzab';
   static const HADITH_RANGE = '/hadith-range';
   static const DZIKIR_BY_CATEGORY = '/dzikir-by-category';
+  static const DOA_PAGE = '/doa-page';
 }

@@ -46,7 +46,7 @@ class QuranView extends GetView<QuranController> {
         ),
       ),
       body: DefaultTabController(
-        length: 4,
+        length: 3,
         child: Padding(
           padding: const EdgeInsets.only(
             left: 20,
@@ -136,13 +136,10 @@ class QuranView extends GetView<QuranController> {
                     text: 'Surah',
                   ),
                   Tab(
-                    text: 'Doa',
+                    text: 'Juz',
                   ),
                   Tab(
                     text: 'Bookmarks',
-                  ),
-                  Tab(
-                    text: 'Juz',
                   )
                 ],
                 labelColor: appBlue,
@@ -222,52 +219,11 @@ class QuranView extends GetView<QuranController> {
                         );
                       },
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: Obx(
-                        () => GridView.count(
-                          crossAxisCount: 2,
-                          children: List.generate(
-                            controller.listDoa.length,
-                            (index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Card(
-                                  child: InkWell(
-                                    borderRadius: BorderRadius.circular(10),
-                                    onTap: () {
-                                      Get.toNamed(
-                                          controller.listDoa[index]['url']);
-                                    },
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Image.asset(
-                                          controller.listDoa[index]['icon'],
-                                          width: 100,
-                                          height: 100,
-                                        ),
-                                        const SizedBox(height: 8),
-                                        Text(
-                                          controller.listDoa[index]['title'],
-                                          style: primaryTextStyle,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
+                    const Center(
+                      child: Text('Coming Soon!'),
                     ),
                     const Center(
                       child: Text('Bookmarks'),
-                    ),
-                    const Center(
-                      child: Text('Juz'),
                     ),
                   ],
                 ),

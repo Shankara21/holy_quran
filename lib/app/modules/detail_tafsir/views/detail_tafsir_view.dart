@@ -113,7 +113,7 @@ class DetailTafsirView extends GetView<DetailTafsirController> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
                   child: CircularProgressIndicator(
-                    backgroundColor: Colors.blue,
+                    color: Colors.blue,
                   ),
                 );
               }

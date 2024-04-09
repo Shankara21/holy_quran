@@ -33,12 +33,12 @@ class DetailSurahView extends GetView<DetailSurahController> {
         actions: [
           IconButton(
             onPressed: () {
-               Get.toNamed(Routes.DETAIL_TAFSIR, arguments: surah);
+              Get.toNamed(Routes.DETAIL_TAFSIR, arguments: surah);
             },
             icon: const Icon(
               Icons.library_books_outlined,
               size: 28,
-            ), 
+            ),
           ),
         ],
       ),
@@ -136,7 +136,76 @@ class DetailSurahView extends GetView<DetailSurahController> {
             ),
           ),
           const SizedBox(
-            height: 20,
+            height: 10,
+          ),
+          Card(
+            color: Colors.blue[700],
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 10,
+                horizontal: 20,
+              ),
+              child: Obx(
+                () => Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Play full audio',
+                      style: primaryTextStyle.copyWith(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                    controller.audioStatus == 'stop'
+                        ? IconButton(
+                            onPressed: () {
+                              controller.playAudioSurah(surah);
+                            },
+                            icon: const Icon(
+                              Icons.play_arrow,
+                              color: Colors.white,
+                            ),
+                          )
+                        : Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              controller.audioStatus == 'play'
+                                  ? IconButton(
+                                      onPressed: () {
+                                        // controller.pauseFullAudio();
+                                      },
+                                      icon: const Icon(
+                                        Icons.pause,
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  : IconButton(
+                                      onPressed: () {
+                                        // controller.resumeFullAudio();
+                                      },
+                                      icon: const Icon(
+                                        Icons.play_arrow,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                              IconButton(
+                                onPressed: () {
+                                  // controller.stopFullAudio();
+                                },
+                                icon: const Icon(
+                                  Icons.stop,
+                                  color: Colors.white,
+                                ),
+                              )
+                            ],
+                          )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 10,
           ),
           FutureBuilder<Surah>(
             future: controller.getDetailSurah(nomor),
@@ -144,7 +213,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
                   child: CircularProgressIndicator(
-                    backgroundColor: Colors.blue,
+                    color: Colors.blue,
                   ),
                 );
               }
@@ -160,6 +229,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                 itemCount: snapshot.data!.ayat!.length,
                 itemBuilder: (context, index) {
                   Ayat ayat = snapshot.data!.ayat![index];
+                  print(ayat.audio);
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -176,57 +246,116 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                 backgroundColor: appBlue,
                                 child: Text("${index + 1}"),
                               ),
-                              GetBuilder<DetailSurahController>(
-                                builder: (ctx) => Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.bookmark_add_outlined,
-                                      ),
-                                    ),
-                                    (ayat.audioStatus == 'stop'
-                                        ? IconButton(
-                                            onPressed: () {
-                                              ctx.playAudio(ayat);
-                                            },
-                                            icon: const Icon(
-                                              Icons.play_arrow,
-                                            ),
-                                          )
-                                        : Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              (ayat.audioStatus == 'play'
-                                                  ? IconButton(
-                                                      onPressed: () {
-                                                        ctx.pauseAudio(ayat);
-                                                      },
-                                                      icon: const Icon(
-                                                        Icons.pause,
-                                                      ),
-                                                    )
-                                                  : IconButton(
-                                                      onPressed: () {
-                                                        ctx.resumeAudio(ayat);
-                                                      },
-                                                      icon: const Icon(
-                                                        Icons.play_arrow,
-                                                      ),
-                                                    )),
-                                              IconButton(
-                                                onPressed: () {
-                                                  ctx.stopAudio(ayat);
-                                                },
-                                                icon: const Icon(
-                                                  Icons.stop,
-                                                ),
-                                              )
-                                            ],
-                                          ))
-                                  ],
-                                ),
-                              )
+                              // GetBuilder<DetailSurahController>(
+                              //   builder: (ctx) => Row(
+                              //     children: [
+                              //       IconButton(
+                              //         onPressed: () {},
+                              //         icon: const Icon(
+                              //           Icons.bookmark_add_outlined,
+                              //         ),
+                              //       ),
+                              //       (ayat.audioStatus == 'stop'
+                              //           ? IconButton(
+                              //               onPressed: () {
+                              //                 ctx.playAudio(ayat);
+                              //               },
+                              //               icon: const Icon(
+                              //                 Icons.play_arrow,
+                              //               ),
+                              //             )
+                              //           : Row(
+                              //               mainAxisSize: MainAxisSize.min,
+                              //               children: [
+                              //                 (ayat.audioStatus == 'play'
+                              //                     ? IconButton(
+                              //                         onPressed: () {
+                              //                           ctx.pauseAudio(ayat);
+                              //                         },
+                              //                         icon: const Icon(
+                              //                           Icons.pause,
+                              //                         ),
+                              //                       )
+                              //                     : IconButton(
+                              //                         onPressed: () {
+                              //                           ctx.resumeAudio(ayat);
+                              //                         },
+                              //                         icon: const Icon(
+                              //                           Icons.play_arrow,
+                              //                         ),
+                              //                       )),
+                              //                 IconButton(
+                              //                   onPressed: () {
+                              //                     ctx.stopAudio(ayat);
+                              //                   },
+                              //                   icon: const Icon(
+                              //                     Icons.stop,
+                              //                   ),
+                              //                 )
+                              //               ],
+                              //             ))
+                              //     ],
+                              //   ),
+                              // )
+                              // GetBuilder<DetailSurahController>(
+                              //   builder: (ctx) {
+                              //     if (ayat != null) {
+                              //       return Row(
+                              //         children: [
+                              //           IconButton(
+                              //             onPressed: () {},
+                              //             icon: const Icon(
+                              //               Icons.bookmark_add_outlined,
+                              //             ),
+                              //           ),
+                              //           (ayat.audioStatus == 'stop'
+                              //               ? IconButton(
+                              //                   onPressed: () {
+                              //                     ctx.playAudio(ayat);
+                              //                   },
+                              //                   icon: const Icon(
+                              //                     Icons.play_arrow,
+                              //                   ),
+                              //                 )
+                              //               : Row(
+                              //                   mainAxisSize: MainAxisSize.min,
+                              //                   children: [
+                              //                     (ayat.audioStatus == 'play'
+                              //                         ? IconButton(
+                              //                             onPressed: () {
+                              //                               ctx.pauseAudio(
+                              //                                   ayat);
+                              //                             },
+                              //                             icon: const Icon(
+                              //                               Icons.pause,
+                              //                             ),
+                              //                           )
+                              //                         : IconButton(
+                              //                             onPressed: () {
+                              //                               ctx.resumeAudio(
+                              //                                   ayat);
+                              //                             },
+                              //                             icon: const Icon(
+                              //                               Icons.play_arrow,
+                              //                             ),
+                              //                           )),
+                              //                     IconButton(
+                              //                       onPressed: () {
+                              //                         ctx.stopAudio(ayat);
+                              //                       },
+                              //                       icon: const Icon(
+                              //                         Icons.stop,
+                              //                       ),
+                              //                     )
+                              //                   ],
+                              //                 ))
+                              //         ],
+                              //       );
+                              //     } else {
+                              //       return SizedBox(); // return empty widget if ayat is null
+                              //     }
+                              //   },
+                              // )
                             ],
                           ),
                         ),

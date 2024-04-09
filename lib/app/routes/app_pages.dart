@@ -6,6 +6,8 @@ import '../modules/detail_tafsir/bindings/detail_tafsir_binding.dart';
 import '../modules/detail_tafsir/views/detail_tafsir_view.dart';
 import '../modules/doa/bindings/doa_binding.dart';
 import '../modules/doa/views/doa_view.dart';
+import '../modules/doa_page/bindings/doa_page_binding.dart';
+import '../modules/doa_page/views/doa_page_view.dart';
 import '../modules/dzikir/bindings/dzikir_binding.dart';
 import '../modules/dzikir/views/dzikir_view.dart';
 import '../modules/dzikir_by_category/bindings/dzikir_by_category_binding.dart';
@@ -104,8 +106,13 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.DZIKIR_BY_CATEGORY,
-      page: () =>  DzikirByCategoryView(),
+      page: () => DzikirByCategoryView(),
       binding: DzikirByCategoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.DOA_PAGE,
+      page: () => const DoaPageView(),
+      binding: DoaPageBinding(),
     ),
   ];
 }

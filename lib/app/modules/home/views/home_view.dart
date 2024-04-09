@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:holy_quran/app/config/themes.dart';
+import 'package:holy_quran/app/modules/doa_page/views/doa_page_view.dart';
 import 'package:holy_quran/app/modules/pray/views/pray_view.dart';
 import 'package:holy_quran/app/modules/quran/views/quran_view.dart';
 import 'package:holy_quran/app/modules/settings/views/settings_view.dart';
@@ -30,8 +31,10 @@ class HomeView extends GetView<HomeController> {
       case 0:
         return const QuranView();
       case 1:
-        return const PrayView();
+        return const DoaPageView();
       case 2:
+        return const PrayView();
+      case 3:
         return const SettingsView();
       default:
         return const PrayView();

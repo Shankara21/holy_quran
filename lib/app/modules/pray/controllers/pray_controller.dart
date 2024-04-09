@@ -104,6 +104,7 @@ class PrayController extends GetxController {
         update();
       } else {
         getPrayerTime();
+        _updateNextPrayTime();
       }
     }
   }

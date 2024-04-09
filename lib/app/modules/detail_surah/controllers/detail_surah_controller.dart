@@ -11,6 +11,7 @@ import 'package:just_audio/just_audio.dart';
 
 class DetailSurahController extends GetxController {
   final player = AudioPlayer();
+  RxString audioStatus = 'stop'.obs;
   Ayat? lastAyat;
   Rx<Surah> nextSurah = Surah(
     nomor: 0,
@@ -63,6 +64,43 @@ class DetailSurahController extends GetxController {
 
     TafsirSurah data = TafsirSurah.fromJson(json.decode(res.body)['data']);
     return data;
+  }
+
+  void playAudioSurah(Surah surah) async {
+    if (surah.audioFull['01'] != null) {
+      try {
+        audioStatus.value = 'stop';
+        await player.stop();
+        await player.setUrl(surah.audioFull['01']!);
+        audioStatus.value = 'play';
+        await player.play();
+        audioStatus.value = 'stop';
+        await player.stop();
+      } on PlayerException catch (e) {
+        Get.defaultDialog(
+          title: 'Terjadi Kesahalan',
+          middleText: e.message.toString(),
+        );
+      } on PlayerInterruptedException catch (e) {
+        Get.defaultDialog(
+          title: 'Terjadi Kesalahan',
+          middleText: "Connection aborted ${e.message.toString()}",
+        );
+      } catch (e) {
+        Get.defaultDialog(
+          title: 'Terjadi Kesalahan',
+          middleText: 'Tidak dapat memutar audio.',
+        );
+      }
+    } else {
+      Get.snackbar(
+        'Error',
+        'Audio tidak ditemukan',
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
   }
 
   void playAudio(Ayat ayat) async {

@@ -13,28 +13,6 @@ class QuranController extends GetxController {
   final box = GetStorage();
   Rx<DateHijri> dateHijri = DateHijri().obs;
 
-  RxList<dynamic> listDoa = <dynamic>[
-    {
-      'title': 'Doa',
-      'icon': 'assets/doa.png',
-      'url': '/doa',
-    },
-    {
-      'title': 'Dzikir',
-      'icon': 'assets/dzikir.png',
-      'url': '/dzikir',
-    },
-    {
-      'title': 'Hadith',
-      'icon': 'assets/hadith.png',
-      'url': '/hadith',
-    },
-    {
-      'title': 'Shalat',
-      'icon': 'assets/prayer.png',
-      'url': '/shalat',
-    },
-  ].obs;
 
   Future<List<Surah>> getAllSurah() async {
     Uri url = Uri.parse("${Api.quranUrl}/surat");
@@ -50,13 +28,6 @@ class QuranController extends GetxController {
   }
 
   void getUsername() {
-    // if (username.value == '') {
-    //   username.value = '';
-    // } else {
-    //   print(box.read('username'));
-    //   username.value = box.read('username');
-    //   update(['username']);
-    // }
     if (username.value == '') {
       if (box.read('username') != null) {
         username.value = box.read('username');
