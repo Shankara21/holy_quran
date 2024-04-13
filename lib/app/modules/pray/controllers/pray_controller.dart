@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:holy_quran/app/config/api_url.dart';
 import 'package:holy_quran/app/data/models/date_hijri.dart';
@@ -12,6 +13,7 @@ import 'package:http/http.dart' as http;
 
 class PrayController extends GetxController {
   Rx<DateTime> timeNow = DateTime.now().obs;
+ 
   RxString timeNowString = ''.obs;
   late Timer _timer;
   RxString dateNow = ''.obs;

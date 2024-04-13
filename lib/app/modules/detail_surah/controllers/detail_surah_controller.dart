@@ -12,6 +12,7 @@ import 'package:just_audio/just_audio.dart';
 class DetailSurahController extends GetxController {
   final player = AudioPlayer();
   RxString audioStatus = 'stop'.obs;
+  RxBool isLoading = false.obs;
   Ayat? lastAyat;
   Rx<Surah> nextSurah = Surah(
     nomor: 0,
@@ -69,13 +70,16 @@ class DetailSurahController extends GetxController {
   void playAudioSurah(Surah surah) async {
     if (surah.audioFull['01'] != null) {
       try {
+        isLoading.value = true;
         audioStatus.value = 'stop';
         await player.stop();
         await player.setUrl(surah.audioFull['01']!);
         audioStatus.value = 'play';
+        isLoading.value = false;
         await player.play();
         audioStatus.value = 'stop';
         await player.stop();
+        isLoading.value = false;
       } on PlayerException catch (e) {
         Get.defaultDialog(
           title: 'Terjadi Kesahalan',

@@ -351,19 +351,20 @@ class PrayView extends GetView<PrayController> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Card(
-        shape: isCurrent
-            ? RoundedRectangleBorder(
-                side: BorderSide(
-                  color: appBlue,
-                  width: 2,
-                ),
-                borderRadius: BorderRadius.circular(10),
-              )
-            : RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
+        // shape: isCurrent
+        //     ? RoundedRectangleBorder(
+        //         side: BorderSide(
+        //           color: appBlue,
+        //           width: 2,
+        //         ),
+        //         borderRadius: BorderRadius.circular(10),
+        //       )
+        //     : RoundedRectangleBorder(
+        //         borderRadius: BorderRadius.circular(10),
+        //       ),
+        color: isCurrent ? appBlue : null,
         child: Padding(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: 10,
             vertical: 20,
           ),
