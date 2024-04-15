@@ -166,17 +166,19 @@ class DetailSurahView extends GetView<DetailSurahController> {
                               color: Colors.white,
                             ),
                           )
-                        : controller.isLoading == true &&
-                                controller.audioStatus == 'stop'
-                            ? const CircularProgressIndicator(
-                                color: Colors.white,
+                        : controller.audioStatus == 'fetching'
+                            ? const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
                               )
                             : Row(
                                 children: [
                                   controller.audioStatus == 'play'
                                       ? IconButton(
                                           onPressed: () {
-                                            // controller.pauseAudioSurah();
+                                            controller.pauseAudioSurah();
                                           },
                                           icon: const Icon(
                                             Icons.pause,
@@ -185,7 +187,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                         )
                                       : IconButton(
                                           onPressed: () {
-                                            // controller.resumeAudioSurah();
+                                            controller.resumeAudioSurah();
                                           },
                                           icon: const Icon(
                                             Icons.play_arrow,
@@ -194,7 +196,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                         ),
                                   IconButton(
                                     onPressed: () {
-                                      // controller.stopAudioSurah();
+                                      controller.stopAudioSurah();
                                     },
                                     icon: const Icon(
                                       Icons.stop,

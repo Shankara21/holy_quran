@@ -70,8 +70,7 @@ class DetailSurahController extends GetxController {
   void playAudioSurah(Surah surah) async {
     if (surah.audioFull['01'] != null) {
       try {
-        isLoading.value = true;
-        audioStatus.value = 'stop';
+        audioStatus.value = 'fetching';
         await player.stop();
         await player.setUrl(surah.audioFull['01']!);
         audioStatus.value = 'play';
@@ -103,6 +102,42 @@ class DetailSurahController extends GetxController {
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red,
         colorText: Colors.white,
+      );
+    }
+  }
+
+  void pauseAudioSurah() async {
+    try {
+      await player.pause();
+      audioStatus.value = 'pause';
+    } on PlayerException catch (e) {
+      Get.defaultDialog(
+        title: 'Terjadi Kesahalan',
+        middleText: e.message.toString(),
+      );
+    }
+  }
+
+  void resumeAudioSurah() async {
+    try {
+      audioStatus.value = 'play';
+      await player.play();
+    } on PlayerException catch (e) {
+      Get.defaultDialog(
+        title: 'Terjadi Kesahalan',
+        middleText: e.message.toString(),
+      );
+    }
+  }
+
+  void stopAudioSurah() async {
+    try {
+      await player.stop();
+      audioStatus.value = 'stop';
+    } on PlayerException catch (e) {
+      Get.defaultDialog(
+        title: 'Terjadi Kesahalan',
+        middleText: e.message.toString(),
       );
     }
   }
